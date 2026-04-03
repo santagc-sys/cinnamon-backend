@@ -8,6 +8,10 @@ app.use(express.json());
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+app.get('/', (req, res) => {
+  res.status(200).send('Backend is running');
+});
+
 app.post('/contact', async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
