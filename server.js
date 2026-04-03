@@ -16,7 +16,7 @@ app.post('/contact', async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: 'Cinnamon Cafe <info@cinnamoncafrestaurant.com>',
       to: ['info@cinnamoncafrestaurant.com'],
       subject: `New contact from ${name}`,
@@ -34,10 +34,25 @@ app.post('/contact', async (req, res) => {
       `,
     });
 
-    res.json({ success: true });
+    console.log('Resend result:', JSON.stringify(result, null, 2));
+
+    if (result.error) {
+      return res.status(500).json({
+        success: false,
+        error: result.error,
+      });
+    }
+
+    return res.json({
+      success: true,
+      data: result.data,
+    });
   } catch (error) {
     console.error('Error sending email:', error);
-    res.status(500).json({ success: false, error: 'Error sending email' });
+    return res.status(500).json({
+      success: false,
+      error: error.message || 'Error sending email',
+    });
   }
 });
 
