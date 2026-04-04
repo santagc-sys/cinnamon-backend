@@ -21,7 +21,7 @@ app.post('/contact', async (req, res) => {
     console.log('ENV prefix:', process.env.RESEND_API_KEY?.slice(0, 12));
 
     const result = await resend.emails.send({
-      from: 'Cinnamon Cafe <info@cinnamoncafrestaurant.com>',
+      from: 'Cinnamon Cafe <onboarding@resend.dev>',
       to: ['info@cinnamoncafrestaurant.com'],
       subject: `New contact from ${name}`,
       reply_to: email,
