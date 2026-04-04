@@ -1,20 +1,10 @@
-import express from 'express';
-import cors from 'cors';
-import { Resend } from 'resend';
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-app.get('/', (req, res) => {
-  res.status(200).send('Backend is running');
-});
-
 app.post('/contact', async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
+
+    console.log('ENV exists:', !!process.env.RESEND_API_KEY);
+    console.log('ENV prefix:', process.env.RESEND_API_KEY?.slice(0, 12));
+    console.log('FROM address:', 'info@cinnamoncafrestaurant.com');
 
     const result = await resend.emails.send({
       from: 'Cinnamon Cafe <info@cinnamoncafrestaurant.com>',
@@ -54,9 +44,4 @@ app.post('/contact', async (req, res) => {
       error: error.message || 'Error sending email',
     });
   }
-});
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });
