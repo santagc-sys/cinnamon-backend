@@ -17,8 +17,8 @@ app.post('/contact', async (req, res) => {
     const { name, email, phone, message } = req.body;
 
     const result = await resend.emails.send({
-      from: 'Cinnamon Cafe <info@cinnamoncafrestaurant.com>',
-      to: ['info@cinnamoncafrestaurant.com'],
+      from: 'Cinnamon Cafe <onboarding@resend.dev>',
+      to: ['santagc@gmail.com'],
       subject: `New contact from ${name}`,
       reply_to: email,
       html: `
