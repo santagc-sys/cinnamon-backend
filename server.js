@@ -19,6 +19,7 @@ app.post('/contact', async (req, res) => {
 
     console.log('ENV exists:', !!process.env.RESEND_API_KEY);
     console.log('ENV prefix:', process.env.RESEND_API_KEY?.slice(0, 12));
+    console.log('Using sender:', 'info@cinnamoncafrestaurant.com');
 
     const result = await resend.emails.send({
       from: 'Cinnamon Cafe <info@cinnamoncafrestaurant.com>',
